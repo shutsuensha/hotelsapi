@@ -4,9 +4,9 @@ services:
     build:
       context: .
     networks:
+      - myNetwork
     ports:
       - 7777:8000
-      - myNetwork
     volumes:
       - .:/app
 
