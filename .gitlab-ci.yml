@@ -1,6 +1,7 @@
 stages:
   - build
   - migrations
+  - test
   - deploy
 
 build-job:
@@ -14,6 +15,11 @@ Migrations:
   stage: migrations
   script:
     - docker run --rm --network myNetwork hotelsapi alembic upgrade head
+
+Tests:
+  stage: test
+  script:
+    - docker run --rm --network myNetworkTest hotelsapi pytest -s -v
 
 deploy-job:
   stage: deploy

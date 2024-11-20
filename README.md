@@ -287,3 +287,14 @@ docker run --rm -it \
 
 ## Media files
 - create media path in vps
+
+## Add test docker postgre
+```bash
+docker run --name booking_db_test \
+    -e POSTGRES_USER=evalshine \
+    -e POSTGRES_PASSWORD=docent1315 \
+    -e POSTGRES_DB=booking \
+    --network=myNetworkTest \
+    --rm \
+    -d postgres:16
+```
