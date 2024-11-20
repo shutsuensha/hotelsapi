@@ -279,5 +279,8 @@ docker run --rm -it \
 - Gitlab build - pipelines
 - try teplate - commit
 - git pull gitlab main
+```bash
+docker pull docker:dind
+```
 
 ## .gitlab-ci.yml
