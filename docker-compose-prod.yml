@@ -1,0 +1,33 @@
+services:
+  booking_back_service:
+    container_name: 'booking_back'
+    image: hotelsapi:latest
+    networks:
+      - myNetwork
+    volumes:
+      - /home/evalshine/backend/hotelsapi_media:/home/evalshine/backend/hotelsapi_media
+
+
+  booking_celery_worker_service:
+    container_name: 'booking_celery_worker'
+    image: hotelsapi:latest
+    networks:
+      - myNetwork
+    command: "celery -A app.tasks.celery_app.celery_instance worker --loglevel=info"
+    volumes:
+      - /home/evalshine/backend/hotelsapi_media:/home/evalshine/backend/hotelsapi_media
+
+
+  booking_celery_beat_service:
+    container_name: 'booking_celery_beat'
+    image: hotelsapi:latest
+    networks:
+      - myNetwork
+    command: "celery -A app.tasks.celery_app.celery_instance beat --loglevel=info"
+    volumes:
+      - /home/evalshine/backend/hotelsapi_media:/home/evalshine/backend/hotelsapi_media
+
+
+networks:
+  myNetwork:
+    external: true

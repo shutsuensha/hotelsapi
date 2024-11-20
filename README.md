@@ -175,9 +175,6 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 sudo apt-get update
 sudo apt-get install git
 ```
-- Clone project from gitlab via ssh
-- Add .env file
-- add static/images
 ## Install Docker
 ```bash
 # Add Docker's official GPG key:
@@ -242,7 +239,7 @@ http {
 ### Run ssl nginx
 ```bash
 docker run --name booking_nginx \
-    --volume ./nginx.conf:/etc/nginx/nginx.conf \
+    --volume /root/nginx.conf:/etc/nginx/nginx.conf \
     --volume /etc/letsencrypt:/etc/letsencrypt \
     --volume /var/lib/letsencrypt:/var/lib/letsencrypt \
     --network=myNetwork \
