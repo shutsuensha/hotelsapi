@@ -2,15 +2,15 @@ from unittest import mock
 
 mock.patch("fastapi_cache.decorator.cache", lambda *args, **kwargs: lambda f: f).start()
 
-import pytest
-from app.database import Base
-from app.models import *
-from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
-from sqlalchemy import NullPool
-from httpx import AsyncClient
-from app.main import app
-from app.routers.dependencies import get_db
-import json
+import pytest # noqa: E402
+from app.database import Base # noqa: E402
+from app.models import * # noqa: E402, F403
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine # noqa: E402
+from sqlalchemy import NullPool # noqa: E402
+from httpx import AsyncClient # noqa: E402
+from app.main import app # noqa: E402
+from app.routers.dependencies import get_db # noqa: E402
+import json # noqa: E402
 
 db_url = "postgresql+asyncpg://evalshine:docent1315@booking_db_test:5432/booking"
 
@@ -53,7 +53,7 @@ async def setup_database():
         # Insert hotels
         hotel_instances = []
         for hotel in hotels:
-            hotel_instance = HotelsOrm(
+            hotel_instance = HotelsOrm( # noqa: F405
                 title=hotel["title"],
                 location=hotel["location"]
             )
@@ -64,7 +64,7 @@ async def setup_database():
         # Insert rooms
         room_instances = []
         for room in rooms:
-            room_instance = RoomsOrm(
+            room_instance = RoomsOrm(  # noqa: F405
                 hotel_id=room["hotel_id"],
                 title=room["title"],
                 description=room.get("description"),

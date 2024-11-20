@@ -45,7 +45,7 @@ def verify_password(plain_password, hashed_password):
 def encode_token(token: str) -> dict:
     try:
         return jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
-    except (jwt.exceptions.DecodeError, jwt.exceptions.ExpiredSignatureError) as e:
+    except (jwt.exceptions.DecodeError, jwt.exceptions.ExpiredSignatureError):
         raise HTTPException(status_code=401, detail="Неверный токен или токен истек")
 
 def get_token(request: Request):

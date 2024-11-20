@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, HTTPException, Query
 from app.routers.dependencies import db
 from app.schemas.rooms import RoomIn, RoomOut, RoomPatch
-from sqlalchemy import insert, select, func, delete, update, not_, or_, and_
+from sqlalchemy import insert, select, delete, update, not_, or_, and_
 from app.models import RoomsOrm, HotelsOrm, BookingsOrm, rooms_facilities
 from datetime import date
 from sqlalchemy.orm import selectinload

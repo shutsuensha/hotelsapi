@@ -10,7 +10,7 @@ from alembic import context
 #--------------------------------------------
 from app.config import settings
 from app.database import Base
-from app.models import rooms_facilities, FacilitiesOrm, BookingsOrm, UsersOrm, RoomsOrm, HotelsOrm
+from app.models import rooms_facilities, FacilitiesOrm, BookingsOrm, UsersOrm, RoomsOrm, HotelsOrm # noqa: F401
 
 config = context.config
 

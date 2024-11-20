@@ -1,7 +1,7 @@
 from app.routers.dependencies import filter, db
 from fastapi import APIRouter, status, HTTPException
 
-from sqlalchemy import insert, select, func, delete, update, and_, or_
+from sqlalchemy import insert, select, func, delete, update, or_
 
 from app.schemas.hotels import HotelIn, HotelOut, HotelPatch
 from app.models import HotelsOrm, RoomsOrm, BookingsOrm

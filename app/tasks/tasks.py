@@ -1,5 +1,4 @@
 import asyncio
-from time import sleep
 from PIL import Image
 import os
 from app.schemas.bookings import BookingOut

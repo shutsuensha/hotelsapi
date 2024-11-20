@@ -283,7 +283,7 @@ docker run --rm -it \
 ## Docker compose local
 - sudo docker build -t hotelsapi .
 - sudo docker compose -f docker-compose-local.yml up -d
-- docker image prune -f (delete all <none> images)
+- sudo docker image prune -f (delete all <none> images)
 
 ## Media files
 - create media path in vps

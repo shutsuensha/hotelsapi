@@ -1,6 +1,6 @@
 import pytest
 from sqlalchemy import delete
-from app.models import *
+from app.models import *  # noqa: F403
 from tests.conftest import get_db_null_pool
 
 @pytest.mark.parametrize("room_id, date_from, date_to, status_code", [
@@ -34,7 +34,7 @@ async def test_add_booking(
 @pytest.fixture(scope="module")
 async def delete_all_bookings():
     async for db in get_db_null_pool():
-        await db.execute(delete(BookingsOrm))
+        await db.execute(delete(BookingsOrm))  # noqa: F405
         await db.commit()
 
 

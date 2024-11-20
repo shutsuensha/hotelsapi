@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Response, status
 from app.routers.dependencies import db, create_access_token, hash_password, verify_password, user_id
 from app.schemas.users import UserIn, UserOut
 from app.models import UsersOrm
-from sqlalchemy import insert, select, func, delete, update
+from sqlalchemy import insert, select
 
 router = APIRouter(prefix="/auth", tags=["users"])
 

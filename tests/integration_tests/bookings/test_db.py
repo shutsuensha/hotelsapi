@@ -1,10 +1,10 @@
 from datetime import date
-from app.models import *
+from app.models import * # noqa: F403
 from sqlalchemy import select, update, delete
 
 async def test_booking_crud(db):
     #create
-    new_booking = BookingsOrm(
+    new_booking = BookingsOrm( # noqa: F405
             user_id=1,
             room_id=1,
             date_from=date(year=2024, month=8, day=10),
@@ -15,7 +15,7 @@ async def test_booking_crud(db):
     await db.commit()
 
     #read
-    result = await db.execute(select(BookingsOrm).where(BookingsOrm.id == new_booking.id))
+    result = await db.execute(select(BookingsOrm).where(BookingsOrm.id == new_booking.id)) # noqa: F405 
     booking = result.scalars().first()
 
     assert booking
@@ -32,13 +32,13 @@ async def test_booking_crud(db):
     update_values["price"] = 100
 
     await db.execute(
-            update(BookingsOrm)
-            .where(BookingsOrm.id == new_booking.id)
+            update(BookingsOrm) # noqa: F405
+            .where(BookingsOrm.id == new_booking.id) # noqa: F405
             .values(**update_values)
         )
     await db.commit()
 
-    result = await db.execute(select(BookingsOrm).where(BookingsOrm.id == new_booking.id))
+    result = await db.execute(select(BookingsOrm).where(BookingsOrm.id == new_booking.id)) # noqa: F405
     booking = result.scalars().first()
 
     assert booking
@@ -46,9 +46,9 @@ async def test_booking_crud(db):
     assert booking.date_to == date(year=2024, month=8, day=25)
 
     #delete
-    await db.execute(delete(BookingsOrm).where(BookingsOrm.id == new_booking.id))
+    await db.execute(delete(BookingsOrm).where(BookingsOrm.id == new_booking.id)) # noqa: F405
     await db.commit()
     
-    result = await db.execute(select(BookingsOrm).where(BookingsOrm.id == new_booking.id))
+    result = await db.execute(select(BookingsOrm).where(BookingsOrm.id == new_booking.id)) # noqa: F405
     booking = result.scalars().first()
     assert not booking

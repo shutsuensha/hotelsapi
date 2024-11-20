@@ -48,7 +48,7 @@ async def add_booking(user_id: user_id, db: db, booking_in: BookingIn):
     result = await db.execute(query)
     if result.scalar() < room.quantity:
         total_price = room.price * (booking_in.date_to - booking_in.date_from).days
-        booking = await db.scalar(insert(BookingsOrm)
+        await db.scalar(insert(BookingsOrm)
                                     .values(user_id=user_id, 
                                          price=total_price, 
                                          **booking_in.model_dump())
