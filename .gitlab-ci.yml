@@ -13,7 +13,7 @@ build-job:
 Migrations:
   stage: migrations
   script:
-    - docker run --rm --network myNetwork booking-api-image alembic upgrade head
+    - docker run --rm --network myNetwork hotelsapi alembic upgrade head
 
 deploy-job:
   stage: deploy
