@@ -1,5 +1,6 @@
 stages:
   - build
+  - migrations
   - deploy
 
 build-job:
@@ -8,6 +9,11 @@ build-job:
     - cp ${ENV} .env
   script:
     - docker build -t hotelsapi .
+
+Migrations:
+  stage: migrations
+  script:
+    - docker run --rm --network myNetwork booking-api-image alembic upgrade head
 
 deploy-job:
   stage: deploy
