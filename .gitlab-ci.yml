@@ -4,8 +4,10 @@ stages:
 
 build-job:
   stage: build
+  before_script:
+    - cp ${ENV} .env
   script:
-    - docker build -t booking-api-image .
+    - docker build -t hotelsapi .
 
 deploy-job:
   stage: deploy

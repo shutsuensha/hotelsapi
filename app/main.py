@@ -35,4 +35,9 @@ app.include_router(images.router)
 
 @app.get('/')
 async def root():
-    return 'welcome'
+    return 'zxczxczxc'
+
+
+@app.get('/dddddddddddddddddddd')
+async def root():
+    return 'ddddddddddddd'

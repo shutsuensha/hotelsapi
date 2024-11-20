@@ -149,7 +149,7 @@ http {
 
 ## Docker compose
 ```bash
-docker compose build - (build image from Dockerfile)
+docker compose build
 docker compose up -d
 ```
 
@@ -279,8 +279,7 @@ docker run --rm -it \
 - Gitlab build - pipelines
 - try teplate - commit
 - git pull gitlab main
-```bash
-docker pull docker:dind
-```
+### Add end in gitlab
+- Settings -> ci/cd -> variables
 
 ## .gitlab-ci.yml

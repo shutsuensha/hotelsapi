@@ -9,7 +9,7 @@ router = APIRouter(prefix="/images", tags=["Изображения отелей"
 
 @router.post("/")
 def upload_image(file: UploadFile):
-    image_path = f"app/static/images/{file.filename}"
+    image_path = f"/home/evalshine/backend/hotelsapi_media/{file.filename}"
     with open(image_path, "wb+") as new_file:
         shutil.copyfileobj(file.file, new_file)
 

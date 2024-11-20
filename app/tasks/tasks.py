@@ -14,7 +14,7 @@ import logging
 def resize_image(image_path: str):
     logging.debug(f"Вызывается функция image_path с {image_path=}")
     sizes = [1000, 500, 200]
-    output_folder = 'app/static/images'
+    output_folder = '/home/evalshine/backend/hotelsapi_media'
 
     # Открываем изображение
     img = Image.open(image_path)
