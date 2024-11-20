@@ -1,0 +1,6 @@
+Dockerfile
+.venv
+__pycache__
+run.sql
+.pytest_cache
+celerybeat-schedule
