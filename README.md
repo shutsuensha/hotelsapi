@@ -237,6 +237,7 @@ http {
 }
 ```
 ### Run ssl nginx
+- create file nginx.conf in vps
 ```bash
 docker run --name booking_nginx \
     --volume /root/nginx.conf:/etc/nginx/nginx.conf \
@@ -282,3 +283,7 @@ docker run --rm -it \
 ## Docker compose local
 - sudo docker build -t hotelsapi .
 - sudo docker compose -f docker-compose-local.yml up -d
+- docker image prune -f (delete all <none> images)
+
+## Media files
+- create media path in vps

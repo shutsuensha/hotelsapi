@@ -14,3 +14,4 @@ deploy-job:
   script:
     - docker compose -f docker-compose-prod.yml up -d
     - docker exec booking_nginx nginx -s reload
+    - docker image prune -f
