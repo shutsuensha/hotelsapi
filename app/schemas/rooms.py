@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class RoomIn(BaseModel):
     title: str
     description: str | None = None
@@ -7,9 +8,11 @@ class RoomIn(BaseModel):
     quantity: int
     facilities_ids: list[int] = []
 
+
 class RoomOut(RoomIn):
     id: int
     hotel_id: int
+
 
 class RoomPatch(BaseModel):
     title: str | None = None

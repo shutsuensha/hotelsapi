@@ -12,9 +12,10 @@ from app.config import settings
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logging.info('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
+    logging.info("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
     logging.info(f"Начинаю подключение к Redis {settings.REDIS_URL}")
     redis = aioredis.from_url(settings.REDIS_URL)
     logging.info(f"Успешное подключение к Redis {settings.REDIS_URL}")
@@ -31,8 +32,3 @@ app.include_router(rooms.router)
 app.include_router(bookings.router)
 app.include_router(facilities.router)
 app.include_router(images.router)
-
-
-@app.get('/zxczxczxczxczxc')
-async def root():
-    return "lol"

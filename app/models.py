@@ -8,7 +8,7 @@ rooms_facilities = Table(
     "rooms_facilities",
     Base.metadata,
     Column("room_id", ForeignKey("rooms.id"), primary_key=True),
-    Column("facility_id", ForeignKey("facilities.id"), primary_key=True)
+    Column("facility_id", ForeignKey("facilities.id"), primary_key=True),
 )
 
 
@@ -35,7 +35,6 @@ class BookingsOrm(Base):
     price: Mapped[int]
 
 
-
 class UsersOrm(Base):
     __tablename__ = "users"
 
@@ -59,7 +58,6 @@ class RoomsOrm(Base):
         back_populates="rooms",
         secondary="rooms_facilities",
     )
-
 
 
 class HotelsOrm(Base):

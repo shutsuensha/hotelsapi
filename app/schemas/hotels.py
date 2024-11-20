@@ -25,7 +25,6 @@ class HotelPatch(BaseModel):
     title: str | None = None
     location: str | None = None
 
-
     model_config = {
         "json_schema_extra": {
             "examples": [

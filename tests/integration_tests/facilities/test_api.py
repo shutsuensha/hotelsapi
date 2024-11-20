@@ -11,4 +11,3 @@ async def test_post_facilities(ac):
     res = response.json()
     assert isinstance(res, dict)
     assert res["title"] == facility_title
-

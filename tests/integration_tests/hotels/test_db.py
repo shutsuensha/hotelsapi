@@ -5,5 +5,7 @@ from app.models import HotelsOrm
 
 async def test_add_hotel(db):
     hotel = HotelIn(title="Hotel 5", location="Сочи")
-    hotel = await db.scalar(insert(HotelsOrm).values(**hotel.model_dump()).returning(HotelsOrm))
+    hotel = await db.scalar(
+        insert(HotelsOrm).values(**hotel.model_dump()).returning(HotelsOrm)
+    )
     await db.commit()

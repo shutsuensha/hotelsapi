@@ -1,5 +1,11 @@
 from fastapi import APIRouter, HTTPException, Response, status
-from app.routers.dependencies import db, create_access_token, hash_password, verify_password, user_id
+from app.routers.dependencies import (
+    db,
+    create_access_token,
+    hash_password,
+    verify_password,
+    user_id,
+)
 from app.schemas.users import UserIn, UserOut
 from app.models import UsersOrm
 from sqlalchemy import insert, select
@@ -12,9 +18,11 @@ async def register_user(user_in: UserIn, db: db):
     user = await db.scalar(select(UsersOrm).where(UsersOrm.email == user_in.email))
     if user:
         raise HTTPException(status_code=409, detail="user already exists")
-    user = await db.scalar(insert(UsersOrm)
-                            .values(email=user_in.email, hashed_password=hash_password(user_in.password))
-                            .returning(UsersOrm))
+    user = await db.scalar(
+        insert(UsersOrm)
+        .values(email=user_in.email, hashed_password=hash_password(user_in.password))
+        .returning(UsersOrm)
+    )
     await db.commit()
     return user
 
@@ -23,7 +31,9 @@ async def register_user(user_in: UserIn, db: db):
 async def login_user(user_in: UserIn, response: Response, db: db):
     user = await db.scalar(select(UsersOrm).where(UsersOrm.email == user_in.email))
     if not user:
-        raise HTTPException(status_code=401, detail="Пользователь с таким email не зарегистрирован")
+        raise HTTPException(
+            status_code=401, detail="Пользователь с таким email не зарегистрирован"
+        )
     if not verify_password(user_in.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Пароль неверный")
     access_token = create_access_token({"user_id": user.id})

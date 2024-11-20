@@ -7,17 +7,24 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
-#--------------------------------------------
+# --------------------------------------------
 from app.config import settings
 from app.database import Base
-from app.models import rooms_facilities, FacilitiesOrm, BookingsOrm, UsersOrm, RoomsOrm, HotelsOrm # noqa: F401
+from app.models import (
+    rooms_facilities,  # noqa: F401
+    FacilitiesOrm,  # noqa: F401
+    BookingsOrm,  # noqa: F401
+    UsersOrm,  # noqa: F401
+    RoomsOrm,  # noqa: F401
+    HotelsOrm,  # noqa: F401
+)
 
 config = context.config
 
 config.set_main_option("sqlalchemy.url", f"{settings.DB_URL}")
 
 target_metadata = Base.metadata
-#--------------------------------------------
+# --------------------------------------------
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
