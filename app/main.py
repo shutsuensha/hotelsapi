@@ -31,13 +31,3 @@ app.include_router(rooms.router)
 app.include_router(bookings.router)
 app.include_router(facilities.router)
 app.include_router(images.router)
-
-
-@app.get('/')
-async def root():
-    return 'zxczxczxc'
-
-
-@app.get('/dddddddddddddddddddd')
-async def root():
-    return 'ddddddddddddd'
