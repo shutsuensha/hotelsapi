@@ -1,5 +1,6 @@
 stages:
   - build
+  - lint_format
   - migrations
   - test
   - deploy
@@ -10,6 +11,16 @@ build-job:
     - cp ${ENV} .env
   script:
     - docker build -t hotelsapi .
+
+Lint:
+  stage: lint_format
+  script:
+    - docker run --rm hotelsapi ruff check
+
+Format:
+  stage: lint_format
+  script:
+    - docker run --rm hotelsapi ruff format --check
 
 Migrations:
   stage: migrations

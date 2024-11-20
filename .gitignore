@@ -5,3 +5,4 @@ run.sql
 static
 .pytest_cache
 celerybeat-schedule
+.ruff_cache
