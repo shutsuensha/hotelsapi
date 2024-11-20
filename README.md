@@ -279,4 +279,6 @@ docker run --rm -it \
 ### Add end in gitlab
 - Settings -> ci/cd -> variables
 
-## .gitlab-ci.yml
+## Docker compose local
+- sudo docker build -t hotelsapi .
+- sudo docker compose -f docker-compose-local.yml up -d
