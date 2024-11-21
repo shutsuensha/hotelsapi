@@ -289,6 +289,7 @@ docker run --rm -it \
 - create media path in vps
 
 ## Add test docker postgre
+## create new network in docker 
 ```bash
 docker run --name booking_db_test \
     -e POSTGRES_USER=evalshine \
