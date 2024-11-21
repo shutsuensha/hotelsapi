@@ -15,7 +15,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logging.info("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
     logging.info(f"Начинаю подключение к Redis {settings.REDIS_URL}")
     redis = aioredis.from_url(settings.REDIS_URL)
     logging.info(f"Успешное подключение к Redis {settings.REDIS_URL}")

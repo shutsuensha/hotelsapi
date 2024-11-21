@@ -24,9 +24,7 @@ async def get_rooms(
         )
     hotel = await db.scalar(select(HotelsOrm).where(HotelsOrm.id == hotel_id))
     if hotel is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="hotel not found"
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="hotel not found")
 
     query = (
         select(RoomsOrm)
@@ -75,18 +73,14 @@ async def get_rooms(
 async def get_room(hotel_id: int, room_id: int, db: db):
     hotel = await db.scalar(select(HotelsOrm).where(HotelsOrm.id == hotel_id))
     if hotel is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="hotel not found"
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="hotel not found")
     room = await db.scalar(
         select(RoomsOrm)
         .where(RoomsOrm.hotel_id == hotel_id, RoomsOrm.id == room_id)
         .options(selectinload(RoomsOrm.facilities))
     )
     if room is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="room not found"
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="room not found")
     room_data = {
         "id": room.id,
         "hotel_id": room.hotel_id,
@@ -99,15 +93,11 @@ async def get_room(hotel_id: int, room_id: int, db: db):
     return room_data
 
 
-@router.post(
-    "/{hotel_id}/rooms", response_model=RoomOut, status_code=status.HTTP_201_CREATED
-)
+@router.post("/{hotel_id}/rooms", response_model=RoomOut, status_code=status.HTTP_201_CREATED)
 async def create_room(hotel_id: int, db: db, room_in: RoomIn):
     hotel = await db.scalar(select(HotelsOrm).where(HotelsOrm.id == hotel_id))
     if hotel is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="hotel not found"
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="hotel not found")
     room = await db.scalar(
         insert(RoomsOrm)
         .values(hotel_id=hotel_id, **room_in.model_dump(exclude={"facilities_ids"}))
@@ -115,8 +105,7 @@ async def create_room(hotel_id: int, db: db, room_in: RoomIn):
     )
 
     insert_values = [
-        {"room_id": room.id, "facility_id": facility_id}
-        for facility_id in room_in.facilities_ids
+        {"room_id": room.id, "facility_id": facility_id} for facility_id in room_in.facilities_ids
     ]
     await db.execute(insert(rooms_facilities), insert_values)
     await db.commit()
@@ -146,14 +135,11 @@ async def edit_room(hotel_id: int, room_id: int, db: db, room_in: RoomIn):
     )
 
     # Remove existing facilities associations for this room
-    await db.execute(
-        delete(rooms_facilities).where(rooms_facilities.c.room_id == room_id)
-    )
+    await db.execute(delete(rooms_facilities).where(rooms_facilities.c.room_id == room_id))
 
     # Insert the new facilities associations
     insert_values = [
-        {"room_id": room.id, "facility_id": facility_id}
-        for facility_id in room_in.facilities_ids
+        {"room_id": room.id, "facility_id": facility_id} for facility_id in room_in.facilities_ids
     ]
     if insert_values:
         await db.execute(insert(rooms_facilities), insert_values)
@@ -194,9 +180,7 @@ async def partially_edit_room(hotel_id: int, room_id: int, db: db, room_in: Room
     room_facility = []
     if room_in.facilities_ids:
         room_facility = room_in.facilities_ids
-        await db.execute(
-            delete(rooms_facilities).where(rooms_facilities.c.room_id == room_id)
-        )
+        await db.execute(delete(rooms_facilities).where(rooms_facilities.c.room_id == room_id))
 
         # Insert the new facilities associations
         insert_values = [
@@ -230,14 +214,10 @@ async def delete_room(hotel_id: int, room_id: int, db: db):
     await get_room(hotel_id, room_id, db)
 
     # Delete associations in rooms_facilities first
-    await db.execute(
-        delete(rooms_facilities).where(rooms_facilities.c.room_id == room_id)
-    )
+    await db.execute(delete(rooms_facilities).where(rooms_facilities.c.room_id == room_id))
 
     # Delete the room
-    await db.execute(
-        delete(RoomsOrm).where(RoomsOrm.hotel_id == hotel_id, RoomsOrm.id == room_id)
-    )
+    await db.execute(delete(RoomsOrm).where(RoomsOrm.hotel_id == hotel_id, RoomsOrm.id == room_id))
 
     # Commit the transaction
     await db.commit()

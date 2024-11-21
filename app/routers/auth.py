@@ -31,9 +31,7 @@ async def register_user(user_in: UserIn, db: db):
 async def login_user(user_in: UserIn, response: Response, db: db):
     user = await db.scalar(select(UsersOrm).where(UsersOrm.email == user_in.email))
     if not user:
-        raise HTTPException(
-            status_code=401, detail="Пользователь с таким email не зарегистрирован"
-        )
+        raise HTTPException(status_code=401, detail="Пользователь с таким email не зарегистрирован")
     if not verify_password(user_in.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Пароль неверный")
     access_token = create_access_token({"user_id": user.id})

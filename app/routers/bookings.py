@@ -15,9 +15,7 @@ async def get_bookings(db: db):
 
 @router.get("/me", response_model=list[BookingOut])
 async def get_my_bookings(user_id: user_id, db: db):
-    bookings = await db.scalars(
-        select(BookingsOrm).where(BookingsOrm.user_id == user_id)
-    )
+    bookings = await db.scalars(select(BookingsOrm).where(BookingsOrm.user_id == user_id))
     return bookings
 
 
@@ -26,9 +24,7 @@ async def add_booking(user_id: user_id, db: db, booking_in: BookingIn):
     room_id = booking_in.room_id
     room = await db.scalar(select(RoomsOrm).where(RoomsOrm.id == room_id))
     if room is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="room not found"
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="room not found")
     query = (
         select(func.count())
         .select_from(BookingsOrm)
@@ -56,7 +52,5 @@ async def add_booking(user_id: user_id, db: db, booking_in: BookingIn):
         )
         await db.commit()
     else:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="No available rooms"
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No available rooms")
     return {"status": "ok"}

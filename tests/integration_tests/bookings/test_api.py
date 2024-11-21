@@ -16,9 +16,7 @@ from tests.conftest import get_db_null_pool
         (1, "2024-08-17", "2024-08-25", 200),
     ],
 )
-async def test_add_booking(
-    room_id, date_from, date_to, status_code, db, authenticated_ac
-):
+async def test_add_booking(room_id, date_from, date_to, status_code, db, authenticated_ac):
     response = await authenticated_ac.post(
         "/bookings/",
         json={

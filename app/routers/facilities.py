@@ -18,9 +18,7 @@ async def get_facilities(db: db):
 @router.post("/", response_model=FacilityOut)
 async def create_facility(db: db, facility_in: FacilityIn):
     facility = await db.scalar(
-        insert(FacilitiesOrm)
-        .values(**facility_in.model_dump())
-        .returning(FacilitiesOrm)
+        insert(FacilitiesOrm).values(**facility_in.model_dump()).returning(FacilitiesOrm)
     )
     await db.commit()
 
